@@ -10,7 +10,7 @@ public class Line : MonoBehaviour
     public Personne originPersonne;
     Personne endPersonne;
 
-    [SerializeField] float maxDistance = 2f;
+    public float maxDistance = 2f;
 
     LineRenderer lRenderer;
 

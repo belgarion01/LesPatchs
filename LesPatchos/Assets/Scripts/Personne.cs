@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Linq;
 using UnityEngine.UI;
+using TMPro;
 
 public class Personne : SerializedMonoBehaviour
 {
@@ -54,6 +55,7 @@ public class Personne : SerializedMonoBehaviour
 
     GameManager gameManager;
 
+    [SerializeField] TextMeshProUGUI connectionUI;
 
     private void Start()
     {
@@ -71,6 +73,8 @@ public class Personne : SerializedMonoBehaviour
         {
             envieUI[PO.passion].transform.gameObject.SetActive(true);
         }
+
+        UpdateConnectionUI();
     }
 
     public void UpdateAttributes()
@@ -200,16 +204,32 @@ public class Personne : SerializedMonoBehaviour
     {
         connectedBuddy.Add(buddy);
         UpdateEnvies();
+        UpdateConnectionUI();
     }
 
     public void RemoveConnectedBuddy(Personne buddy)
     {
         connectedBuddy.Remove(buddy);
         UpdateEnvies();
+        UpdateConnectionUI();
     }
 
     public bool ConnectionsAvailable() 
     {
         return numberOfConnection < maxNumberOfConnection ? true : false;
+    }
+
+    void UpdateConnectionUI()
+    {
+        connectionUI.text = (maxNumberOfConnection - numberOfConnection).ToString();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        float distance = linePrefab.GetComponent<Line>().maxDistance;
+
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawWireSphere(transform.position, distance);
     }
 }
