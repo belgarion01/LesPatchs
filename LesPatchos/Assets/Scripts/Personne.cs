@@ -4,6 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Personne : SerializedMonoBehaviour
 {
@@ -19,6 +20,10 @@ public class Personne : SerializedMonoBehaviour
     #endregion
 
     public List<PassionObject> Attributes;
+
+    [ReadOnly]
+    public bool isHappy = false;
+
 
     [ReadOnly]
     public Dictionary<Passion, bool> activatedAttributes = new Dictionary<Passion, bool> 
@@ -44,6 +49,29 @@ public class Personne : SerializedMonoBehaviour
         { Passion.Peinture, false }
     };
 
+    GameManager gameManager;
+
+
+    private void Start()
+    {
+        isHappy = false;
+
+        gameManager = FindObjectOfType<GameManager>();
+        gameManager.personnes.Add(this);
+
+        foreach (Passion passion in Enum.GetValues(typeof(Passion)).Cast<Passion>())
+        {
+            envieUI[passion].transform.gameObject.SetActive(false);
+        }
+
+        foreach (PassionObject PO in Envies)
+        {
+            envieUI[PO.passion].transform.gameObject.SetActive(true);
+        }
+    }
+
+    public Dictionary<Passion, Image> envieUI;
+
     public void UpdateAttributes()
     {
         foreach(Passion passion in Enum.GetValues(typeof(Passion)).Cast<Passion>())
@@ -61,6 +89,7 @@ public class Personne : SerializedMonoBehaviour
 
     public void UpdateEnvies()
     {
+        //Reset the dictionnary
         foreach (Passion passion in Enum.GetValues(typeof(Passion)).Cast<Passion>())
         {
             activatedEnvies[passion] = false;
@@ -68,6 +97,7 @@ public class Personne : SerializedMonoBehaviour
 
         List<Passion> connectedAttributes = new List<Passion>();
 
+        //Add all passions from the connected buddy
         foreach(Personne buddy in connectedBuddy)
         {
             foreach(PassionObject PO in buddy.Attributes)
@@ -76,10 +106,41 @@ public class Personne : SerializedMonoBehaviour
             }
         }
 
+        //Set to true in the dictionnary
         foreach(Passion passion in connectedAttributes)
         {
             activatedEnvies[passion] = true;
         }
+
+        UpdateEnviesFeedback();
+        if(gameManager != null) gameManager.UpdateWinCondition();
+    }
+
+    public void UpdateEnviesFeedback()
+    {
+        foreach (Passion passion in Enum.GetValues(typeof(Passion)).Cast<Passion>())
+        {
+            envieUI[passion].transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+        bool willBeHappy = true;
+
+        foreach(PassionObject PO in Envies)
+        {
+            if (activatedEnvies[PO.passion])
+            {
+                //SetActiveUI
+                envieUI.TryGetValue(PO.passion, out Image ui);
+                ui.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                willBeHappy = false;
+            }
+        }
+
+        if (willBeHappy) isHappy = true;
+        else isHappy = false;
     }
 
     private void OnValidate()
@@ -89,7 +150,7 @@ public class Personne : SerializedMonoBehaviour
 
     private void OnMouseDown()
     {
-        if (ConnectionsAvailable())
+        if (ConnectionsAvailable() && !gameManager.gameEnded)
         {
             Line line = Instantiate(linePrefab, transform.position, Quaternion.identity).GetComponent<Line>();
             line.originPersonne = this;

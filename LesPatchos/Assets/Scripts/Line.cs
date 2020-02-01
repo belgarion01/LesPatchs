@@ -10,11 +10,15 @@ public class Line : MonoBehaviour
     public Personne originPersonne;
     Personne endPersonne;
 
+    [SerializeField] float maxDistance = 2f;
+
     LineRenderer lRenderer;
 
     public LayerMask raycastMask;
 
     bool connected = false;
+
+    bool outOfRange = false;
 
     Ray debugRay;
 
@@ -39,7 +43,7 @@ public class Line : MonoBehaviour
         {
             if(hit.collider.TryGetComponent(out Personne personne))
             {
-                if(personne != originPersonne && !isAlreadyConnected(personne) && personne.ConnectionsAvailable())
+                if(personne != originPersonne && !isAlreadyConnected(personne) && personne.ConnectionsAvailable() && !outOfRange)
                 {
                     SetLineEndPosition(personne.transform.position);
                     endPersonne = personne;
@@ -70,8 +74,7 @@ public class Line : MonoBehaviour
                 connected = true;
                 ConnectBuddy(originPersonne, endPersonne);
                 transform.position = Vector3.zero;
-                CreateLineRendererMesh();
-  
+                CreateLineRendererMesh(); 
             }
         }
     }
@@ -84,7 +87,21 @@ public class Line : MonoBehaviour
 
     private void SetLineEndPosition(Vector3 position)
     {
-        lRenderer.SetPosition(1, position);
+        Vector3 newPos = position;
+
+        float distance = Vector3.Distance(lRenderer.GetPosition(0), position);
+
+        if(distance > maxDistance)
+        {
+            newPos = lRenderer.GetPosition(0) + (position - lRenderer.GetPosition(0)).normalized * maxDistance;
+            outOfRange = true;
+        }
+        else
+        {
+            outOfRange = false;
+        }
+
+        lRenderer.SetPosition(1, newPos);
     }
 
     private void ConnectBuddy(Personne buddy1, Personne buddy2)

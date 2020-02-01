@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originPersonne: {fileID: 0}
+  maxDistance: 20
   raycastMask:
     serializedVersion: 2
     m_Bits: 768
