@@ -49,6 +49,9 @@ public class Personne : SerializedMonoBehaviour
         { Passion.Peinture, false }
     };
 
+    public Dictionary<Passion, Image> envieUI;
+    public Dictionary<Passion, GameObject> attributeObject;
+
     GameManager gameManager;
 
 
@@ -70,8 +73,6 @@ public class Personne : SerializedMonoBehaviour
         }
     }
 
-    public Dictionary<Passion, Image> envieUI;
-
     public void UpdateAttributes()
     {
         foreach(Passion passion in Enum.GetValues(typeof(Passion)).Cast<Passion>())
@@ -82,6 +83,16 @@ public class Personne : SerializedMonoBehaviour
         foreach(PassionObject PO in Attributes)
         {
             activatedAttributes[PO.passion] = true;
+        }
+
+        foreach (Passion passion in Enum.GetValues(typeof(Passion)).Cast<Passion>())
+        {
+            attributeObject[passion].transform.gameObject.SetActive(false);
+        }
+
+        foreach (PassionObject PO in Attributes)
+        {
+            attributeObject[PO.passion].SetActive(true);
         }
 
         UpdateEnvies();
@@ -146,6 +157,34 @@ public class Personne : SerializedMonoBehaviour
     private void OnValidate()
     {
         UpdateAttributes();
+    }
+
+    public void AddAttributes(PassionObject passion)
+    {
+        Attributes.Add(passion);
+        UpdateAttributes();
+    }
+
+    public void SetAttributeToRemovable(Passion passion, bool value)
+    {
+        attributeObject[passion].GetComponent<MeshAttributes>().canBeDropped = value;
+    }
+
+    public void RemoveAttributes(PassionObject passion)
+    {
+        Attributes.Add(passion);
+        UpdateAttributes();
+    }
+
+    public bool hasAttributes(Passion passion)
+    {
+        bool toReturn = false;
+        foreach(PassionObject PO in Attributes)
+        {
+            if (PO.passion == passion) toReturn = true;
+        }
+
+        return toReturn;
     }
 
     private void OnMouseDown()

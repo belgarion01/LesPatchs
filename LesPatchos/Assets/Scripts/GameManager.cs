@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
         StringBuilder builder = new StringBuilder();
 
-        happyCountText.text = builder.Append(currentNumberOfHappy).Append("/").Append(happyCountText).ToString();
+        happyCountText.text = builder.Append(currentNumberOfHappy).Append("/").Append(numberOfHappyToWin).ToString();
 
         if (currentNumberOfHappy >= numberOfHappyToWin) Win();
     }
