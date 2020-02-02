@@ -191,6 +191,14 @@ public class Personne : SerializedMonoBehaviour
     {
         Attributes.Add(passion);
         UpdateAttributes();
+
+        if(connectedBuddy.Count > 0)
+        {
+            foreach(Personne buddy in connectedBuddy)
+            {
+                buddy.UpdateAttributes();
+            }
+        }
     }
 
     public void SetAttributeToRemovable(Passion passion, bool value)
@@ -202,6 +210,13 @@ public class Personne : SerializedMonoBehaviour
     {
         Attributes.Add(passion);
         UpdateAttributes();
+        if (connectedBuddy.Count > 0)
+        {
+            foreach (Personne buddy in connectedBuddy)
+            {
+                buddy.UpdateAttributes();
+            }
+        }
     }
 
     public bool hasAttributes(Passion passion)

@@ -20,10 +20,14 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent onWin;
 
-    [ReadOnly]
     public bool gameEnded = false;
 
     private void Start()
+    {
+        
+    }
+
+    private void Update()
     {
         UpdateWinCondition();
     }
@@ -48,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     private void Win()
     {
+        if (gameEnded) return;
         onWin?.Invoke();
         gameEnded = true;
     }
