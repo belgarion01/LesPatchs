@@ -146,22 +146,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1050502517, guid: d33c4c45d41839b4cb787bf526cab62b, type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1050502517, guid: d33c4c45d41839b4cb787bf526cab62b, type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1050502517, guid: d33c4c45d41839b4cb787bf526cab62b, type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1050502517, guid: d33c4c45d41839b4cb787bf526cab62b, type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1811287847782617110, guid: d33c4c45d41839b4cb787bf526cab62b,
         type: 3}
       propertyPath: m_Name
@@ -850,21 +834,6 @@ PrefabInstance:
       propertyPath: serializationData.PrefabModifications.Array.data[11]
       value: '"path":"envieUI.{5es}","value":$eref:11'
       objectReference: {fileID: 0}
-    - target: {fileID: 9074202920869843937, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
-        type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[8].Data
-      value: false
-      objectReference: {fileID: 0}
-    - target: {fileID: 9074202920869843937, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
-        type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[20].Data
-      value: true
-      objectReference: {fileID: 0}
-    - target: {fileID: 9074202920869843937, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
-        type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[28].Data
-      value: false
-      objectReference: {fileID: 0}
     - target: {fileID: 9074202920929937721, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -1045,31 +1014,6 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[5]
       value: '"path":"dragableAttributesPrefabs.{5es}","value":$eref:5'
-      objectReference: {fileID: 0}
-    - target: {fileID: 9074202922044933021, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
-        type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[12].Data
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9074202922044933021, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
-        type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[16].Data
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9074202922044933021, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
-        type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[20].Data
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9074202922044933021, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
-        type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[24].Data
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9074202922044933021, guid: e211baf23a1b3594c89f2ea1b6ce50d4,
-        type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[28].Data
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e211baf23a1b3594c89f2ea1b6ce50d4, type: 3}

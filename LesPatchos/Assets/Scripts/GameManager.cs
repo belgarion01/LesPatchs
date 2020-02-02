@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     [ReadOnly]
     public bool gameEnded = false;
 
+    private void Start()
+    {
+        UpdateWinCondition();
+    }
+
     public void UpdateWinCondition()
     {
         currentNumberOfHappy = 0;
