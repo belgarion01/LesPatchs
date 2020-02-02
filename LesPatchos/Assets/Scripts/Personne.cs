@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class Personne : SerializedMonoBehaviour
 {
@@ -24,6 +25,8 @@ public class Personne : SerializedMonoBehaviour
 
     [ReadOnly]
     public bool isHappy = false;
+
+    public UnityEvent onLineCreated;
 
 
     [ReadOnly]
@@ -77,6 +80,11 @@ public class Personne : SerializedMonoBehaviour
         }
 
         UpdateConnectionUI();
+    }
+
+    private void Update()
+    {
+        buddyAnimator.SetBool("IsHappy", isHappy);
     }
 
     public void UpdateAttributes()
@@ -213,6 +221,7 @@ public class Personne : SerializedMonoBehaviour
         {
             Line line = Instantiate(linePrefab, transform.position, Quaternion.identity).GetComponent<Line>();
             line.originPersonne = this;
+            onLineCreated?.Invoke();
         }
     }
 

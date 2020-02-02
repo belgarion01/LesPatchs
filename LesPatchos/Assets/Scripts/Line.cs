@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Line : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class Line : MonoBehaviour
     bool outOfRange = false;
 
     Ray debugRay;
+
+    public UnityEvent onConnect;
+    public UnityEvent OnDisconnect;
+    public UnityEvent OnMouseUp;
 
     private void Start()
     {
@@ -67,6 +72,8 @@ public class Line : MonoBehaviour
         {
             if (connected) return;
 
+            OnMouseUp?.Invoke();
+
             if (endPersonne == null) Destroy(gameObject);
 
             else
@@ -74,7 +81,8 @@ public class Line : MonoBehaviour
                 connected = true;
                 ConnectBuddy(originPersonne, endPersonne);
                 transform.position = Vector3.zero;
-                CreateLineRendererMesh(); 
+                CreateLineRendererMesh();
+                onConnect?.Invoke();
             }
         }
     }
@@ -82,6 +90,7 @@ public class Line : MonoBehaviour
     private void OnMouseDown()
     {
         BreakBuddy(originPersonne, endPersonne);
+        OnDisconnect?.Invoke();
         Destroy(gameObject);
     }
 
