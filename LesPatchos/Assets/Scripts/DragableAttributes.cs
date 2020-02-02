@@ -36,6 +36,11 @@ public class DragableAttributes : MonoBehaviour
             {
                 targetBuddy = buddy;
             }
+
+            else
+            {
+                targetBuddy = null;
+            }
         }
     }
 
