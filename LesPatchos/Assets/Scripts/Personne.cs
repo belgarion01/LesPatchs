@@ -104,6 +104,17 @@ public class Personne : SerializedMonoBehaviour
 
     public void UpdateEnvies()
     {
+
+        foreach (Passion passion in Enum.GetValues(typeof(Passion)).Cast<Passion>())
+        {
+            envieUI[passion].transform.gameObject.SetActive(false);
+        }
+
+        foreach (PassionObject PO in Envies)
+        {
+            envieUI[PO.passion].transform.gameObject.SetActive(true);
+        }
+
         //Reset the dictionnary
         foreach (Passion passion in Enum.GetValues(typeof(Passion)).Cast<Passion>())
         {
@@ -161,6 +172,7 @@ public class Personne : SerializedMonoBehaviour
     private void OnValidate()
     {
         UpdateAttributes();
+        UpdateEnvies();
     }
 
     public void AddAttributes(PassionObject passion)

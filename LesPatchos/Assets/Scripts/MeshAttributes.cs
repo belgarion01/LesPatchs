@@ -23,4 +23,6 @@ public class MeshAttributes : SerializedMonoBehaviour
 
         gameObject.SetActive(false);
     }
+
+    
 }
