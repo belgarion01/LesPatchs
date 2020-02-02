@@ -57,6 +57,8 @@ public class Personne : SerializedMonoBehaviour
 
     [SerializeField] TextMeshProUGUI connectionUI;
 
+    [SerializeField] Animator buddyAnimator;
+
     private void Start()
     {
         isHappy = false;
@@ -167,6 +169,8 @@ public class Personne : SerializedMonoBehaviour
 
         if (willBeHappy) isHappy = true;
         else isHappy = false;
+
+        buddyAnimator.SetBool("IsHappy", isHappy);
     }
 
     private void OnValidate()
